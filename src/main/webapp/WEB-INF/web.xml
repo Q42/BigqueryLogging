@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	<servlet>
+		<servlet-name>Bigquery-Logging</servlet-name>
+		<servlet-class>nl.q42.hue.logging.HueLoggingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Bigquery-Logging</servlet-name>
+		<url-pattern>/bigquery-logging</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TestLogsAccessible</servlet-name>
+		<servlet-class>com.streak.logging.analysis.TestLogsAccessibleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TestLogsAccessible</servlet-name>
+		<url-pattern>/logging/test</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LogExportCronTask</servlet-name>
+		<servlet-class>com.streak.logging.analysis.LogExportCronTask</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogExportCronTask</servlet-name>
+		<url-pattern>/logging/logExportCron</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>StoreLogsInCloudStorageTask</servlet-name>
+		<servlet-class>com.streak.logging.analysis.StoreLogsInCloudStorageTask</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StoreLogsInCloudStorageTask</servlet-name>
+		<url-pattern>/logging/storeLogsInCloudStorage</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoadCloudStorageToBigqueryTask</servlet-name>
+		<servlet-class>com.streak.logging.analysis.LoadCloudStorageToBigqueryTask</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoadCloudStorageToBigqueryTask</servlet-name>
+		<url-pattern>/logging/loadCloudStorageToBigquery</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DeleteCompletedCloudStorageFilesTask</servlet-name>
+		<servlet-class>com.streak.logging.analysis.DeleteCompletedCloudStorageFilesTask</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteCompletedCloudStorageFilesTask</servlet-name>
+		<url-pattern>/logging/deleteCompletedCloudStorageFilesTask</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>BigqueryStatusServlet</servlet-name>
+		<servlet-class>com.streak.logging.analysis.BigqueryStatusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BigqueryStatusServlet</servlet-name>
+		<url-pattern>/logging/bigqueryStatus</url-pattern>
+	</servlet-mapping>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/logging/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+</web-app>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+  <application><!-- YOUR APP ID HERE --></application>
+  <version>bigquery-logging</version>
+
+  <threadsafe>true</threadsafe>
+
+  <system-properties>
+    <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+    <!-- Uncomment the next property to allow the cron job to check with the default app for the current version, this overrules the default property -->
+    <!--
+    <property name="bigquerylogging.versionUrl" value="http://<your-default-url>/version"/>
+    -->
+    
+    <!-- Define properties for the logging process -->
+    <!-- Note: all properties in the bigquerylogging.default namespace can be overwritten using the name as a get parameter -->
+    <property name="bigquerylogging.default.queueName" value="bigquery-logging-queue"/>
+    <property name="bigquerylogging.default.bigqueryDatasetId" value="bigquery_logging"/>
+    <property name="bigquerylogging.default.bigqueryTableId" value="logs"/>
+    <property name="bigquerylogging.default.logLevel" value="ALL"/>
+    <property name="bigquerylogging.default.deleteFromCloudStorage" value="true"/>
+    
+    <!-- properties depending on OTAP -->
+    <property name="bigquerylogging.default.bucketName" value="<your-bucket>"/>
+    <property name="bigquerylogging.default.bigqueryProjectId" value="<your-project-ID>"/>
+    <property name="bigquerylogging.default.appVersionsToExport" value="<your-default-version>"/>
+
+  </system-properties>
+
+</appengine-web-app>
